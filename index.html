@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>9 Bulan Jadian Penuh Cinta</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #ffeef8 100%);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            padding: 30px;
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        h1 {
+            color: #ff6b9e;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            top: 0;
+            left: 0;
+        }
+
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #ff6b9e;
+            opacity: 0;
+            transform: rotate(45deg);
+        }
+
+        .heart:before, .heart:after {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background-color: #ff6b9e;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .heart:before {
+            top: -10px;
+            left: 0;
+        }
+
+        .heart:after {
+            top: 0;
+            left: -10px;
+        }
+
+        .couple-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #ff6b9e;
+            margin: 20px auto;
+            box-shadow: 0 5px 15px rgba(255, 107, 158, 0.3);
+        }
+
+        .btn {
+            background-color: #ff6b9e;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 107, 158, 0.4);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 107, 158, 0.6);
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+        .btn:after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+            animation: ripple 1s ease-out;
+            z-index: -1;
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(20, 20);
+                opacity: 0;
+            }
+        }
+
+        .message {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #fff9fc;
+            border-radius: 10px;
+            border-left: 5px solid #ff6b9e;
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+
+        .message.show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .counter {
+            font-size: 1.5rem;
+            margin: 20px 0;
+            color: #ff6b9e;
+            font-weight: bold;
+        }
+
+        .timeline {
+            width: 100%;
+            height: 10px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            margin: 30px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress {
+            position: absolute;
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, #ff6b9e, #ff8fab);
+            border-radius: 5px;
+            transition: width 1s ease-in-out;
+        }
+
+        footer {
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        @media (max-width: 500px) {
+            .container {
+                width: 95%;
+                padding: 20px 15px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .couple-img {
+                width: 150px;
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hearts" id="hearts"></div>
+        
+        <h1>9 Bulan Kebersamaan Kita</h1>
+        
+        <img src="kenangan.jpg" alt="Foto kenangan kita berdua yang berharga" class="couple-img">
+        
+        <div class="counter">
+            9 Bulan Penuh Bahagia<br>
+            <span id="dateTime">29 Juni 2025</span>
+        </div>
+        
+        <div class="timeline">
+            <div class="progress" id="progress"></div>
+        </div>
+        
+        <button class="btn" id="specialBtn">Buka Kejutan Spesial</button>
+        
+        <div class="message" id="specialMessage">
+            <p>Selamat 9 bulan bersama diriku sayangkuh ❤️</p>
+            <p>Waktu berjalan begitu cepat sejak pertama kali kita memulai hubungan ini. Setiap detik bersamamu adalah momen terindah bagi diriku.</p>
+            <p>Aku berjanji akan terus mendampingimu, melalui suka dan duka. Bersama-sama kita bisa melalui segalanya.</p>
+            <p>Cintaku padamu takkan pernah pudar, selalu tumbuh semakin kuat setiap harinya. Untuk 9 bulan pertama kita, dan untuk selamanya!
+                <p>I LOVE YOU AZIZ PEBRIANTO</p>
+            </p>
+            <button class="btn" id="backBtn" style="margin-top: 20px;">Kembali</button>
+        </div>
+        
+        <footer>
+            Dibuat dengan ❤️ untuk kamu yang spesial
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const btn = document.getElementById('specialBtn');
+            const message = document.getElementById('specialMessage');
+            const heartsContainer = document.getElementById('hearts');
+            const progressBar = document.getElementById('progress');
+            
+            // Set progress bar to 9/12 (75%)
+            setTimeout(() => {
+                progressBar.style.width = '75%';
+            }, 500);
+            
+            btn.addEventListener('click', function() {
+                // Show message
+                message.classList.add('show');
+                
+                // Hide main button
+                btn.style.display = 'none';
+                
+                // Show counter, image during message
+                document.querySelector('.counter').style.display = 'none';
+                document.querySelector('.couple-img').style.display = 'none';
+                document.querySelector('.timeline').style.display = 'none';
+                
+                // Create hearts animation
+                createHearts();
+                
+                // Add ripple effect
+                this.classList.add('active');
+            });
+            
+            function createHearts() {
+                for (let i = 0; i < 30; i++) {
+                    setTimeout(() => {
+                        const heart = document.createElement('div');
+                        heart.classList.add('heart');
+                        
+                        // Random position
+                        const x = Math.random() * 100;
+                        const y = Math.random() * 100;
+                        
+                        // Random size
+                        const size = Math.random() * 10 + 5;
+                        
+                        heart.style.left = `${x}%`;
+                        heart.style.top = `${y}%`;
+                        heart.style.width = `${size}px`;
+                        heart.style.height = `${size}px`;
+                        
+                        // Set animation
+                        heart.style.animation = `float ${Math.random() * 3 + 2}s ease-in-out forwards`;
+                        
+                        heartsContainer.appendChild(heart);
+                        
+                        // Remove heart after animation
+                        setTimeout(() => {
+                            heart.remove();
+                        }, 5000);
+                    }, i * 100);
+                }
+            }
+            
+            // Add ripple effect to button
+            btn.addEventListener('click', function(e) {
+                // Get mouse position relative to button
+                const rect = this.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                // Create ripple element
+                const ripple = document.createElement('span');
+                ripple.classList.add('ripple');
+                ripple.style.left = `${x}px`;
+                ripple.style.top = `${y}px`;
+                this.appendChild(ripple);
+                
+                // Remove ripple after animation
+                setTimeout(() => {
+                    ripple.remove();
+                }, 1000);
+            });
+            
+            // Add keyframes for floating animation
+            const style = document.createElement('style');
+            style.innerHTML = `
+                @keyframes float {
+                    0% {
+                        opacity: 0;
+                        transform: rotate(45deg) translateY(0) translateX(0);
+                    }
+                    10% {
+                        opacity: 1;
+                    }
+                    100% {
+                        opacity: 0;
+                        transform: rotate(45deg) translateY(-100px) translateX(${Math.random() > 0.5 ? '' : '-'}${Math.random() * 50}px);
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            // Back button functionality
+            document.getElementById('backBtn')?.addEventListener('click', function() {
+                message.classList.remove('show');
+                btn.style.display = 'inline-block';
+                document.querySelector('.counter').style.display = 'block';
+                document.querySelector('.couple-img').style.display = 'block';
+                document.querySelector('.timeline').style.display = 'block';
+            });
+        });
+    </script>
+</body>
+</html>
